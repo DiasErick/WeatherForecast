@@ -1,3 +1,5 @@
+import request
+
 def getCredentials():
     appKey = "9c2e93f176d25559234a3d43712a506e"
     return appKey
@@ -20,6 +22,9 @@ def getCurrentWeather(appKey, lat, lon):
     url += "?lat=" + lat
     url += "&lon=" +lon
     url += "&appid=" + appKey
+
+    response = request.get(url).json
+    print(response)
 
     return
 
