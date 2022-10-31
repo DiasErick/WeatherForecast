@@ -1,4 +1,5 @@
 import requests
+from WeatherInfo import WeatherInfo
 
 class WeatherAPI:
         
@@ -17,18 +18,20 @@ class WeatherAPI:
     def setUnit(self, unit):
         self.unit = unit
 
-    def getCurrentWeather(self):
-
-        #Cheking if the geo positions was sent
-        if not self.latitude:
-            return "Latitude is mandatory to get current weahter"
+    def getCurrentWeather(self):        
         
-        if not self.longetude:
-            return "Longitude is mandatory to get current weather"
+        currWeather = WeatherInfo()
+        
+        #Cheking if the geo positions was sent
+        if not self.latitude:            
+            currWeather
+        
+        if not self.longetude:            
+            currWeather
         
         #Checking the App key to access API
         if not self.appKey:
-            return "App Key is mandatory to get current weather"
+            currWeather
         
         #Getting the base URL from Endpoint
         url = f"https://api.openweathermap.org/data/2.5/weather"        
@@ -40,6 +43,14 @@ class WeatherAPI:
         url += "&units=" + self.unit
         
         #Calling API
-        response = requests.get(url).json()
+        response = requests.get(url).json()        
+        if response['cod'] == 200:
+            currWeather.setStatus(True)
+            currWeather.setTemperature(response['main']['temp'])
+            currWeather.setMaxTemperature(response['main']['temp_max'])
+            currWeather.setMinTemperature(response['main']['temp_min'])
+            currWeather.setHumidity(response['main']['humidity'])
+            currWeather.setCondition(response['weather'][0]['description'])
+            currWeather.setNeighborhood(response['name'])
         
-        return response
+        return currWeather
