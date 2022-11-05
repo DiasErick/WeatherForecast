@@ -1,5 +1,12 @@
+from GeoCodeAPI import GeoCodeAPI
 from WeatherAPI import WeatherAPI
 import math
+
+
+obj2 = GeoCodeAPI()
+obj2.setCountry("BR")
+obj2.setCity("São Miguel do Tocantins ")
+obj2.getGeoLocation()
 
 #Just a test to make sure qye can reach the endpoint
 places = []
