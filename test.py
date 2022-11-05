@@ -5,7 +5,7 @@ import math
 places = []
 
 #São Paulo (Brazil)
-places.append([-23.534133019037316,-46.733346683648215])
+places.append([-11.1129897,-68.6030167])
 
 #Toronto (Canada)
 places.append([43.64229060302755,-79.38706290425942])
