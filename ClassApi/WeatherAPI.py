@@ -7,7 +7,7 @@ class WeatherAPI:
         self.latitude  = "0"
         self.longitude = "0"
         self.unit      = "metric"
-        self.appKey    = "9c2e93f176d25559234a3d43712a506e"
+        self.appKey    = ""
         
     def setLatitude(self, latitude):
         self.latitude = str(latitude)
@@ -17,6 +17,9 @@ class WeatherAPI:
     
     def setUnit(self, unit):
         self.unit = unit
+    
+    def setAppKey(self, appKey):
+        self.appKey = appKey        
 
     def getCurrentWeather(self):        
         

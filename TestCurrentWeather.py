@@ -17,6 +17,8 @@ for city in cities:
     objGeo.setCountry(city[0])
     objGeo.setCity(city[1])
     objGeo.setState(city[2])
+    #Probabily in real world this would be stored in a database, here it's just a test with appcode hardcoded
+    objGeo.setAppKey("9c2e93f176d25559234a3d43712a506e")
     location = objGeo.getGeoLocation()
 
     #just cheking if we got the information with no erros
@@ -39,6 +41,8 @@ for place in places:
     obj.setLatitude(place.getLat())
     obj.setLongitude(place.getLon())
     obj.setUnit("metric")
+    #Probabily in real world this would be stored in a database, here it's just a test with appcode hardcoded
+    obj.setAppKey("9c2e93f176d25559234a3d43712a506e")
 
     #Call the method to get current weather conditions
     currTemp = obj.getCurrentWeather()

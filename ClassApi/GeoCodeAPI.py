@@ -6,7 +6,7 @@ class GeoCodeAPI:
         self.country = ""
         self.city    = ""
         self.state   = ""
-        self.appKey  = "9c2e93f176d25559234a3d43712a506e"
+        self.appKey  = ""
         self.limit   = 10
     
     def setCountry(self, country):
@@ -17,6 +17,9 @@ class GeoCodeAPI:
         
     def setState(self, state):
         self.state = state
+    
+    def setAppKey(self, appKey):
+        self.appKey = appKey        
         
     def getGeoLocation(self):        
         #Creatng object with geo location information
