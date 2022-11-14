@@ -2,23 +2,31 @@ from ClassApi.GeoCodeAPI import GeoCodeAPI
 from ClassApi.WeatherAPI import WeatherAPI
 import math
 
+def getAppKey():
+    #Probabily in real world this would be stored in a database, here it's just a test with AppKey hardcoded
+    return "9c2e93f176d25559234a3d43712a506e"
+
+#List with cities that we wish to know the current temperature
 cities = []
-cities.append(['BR', "Gramado", "Rio Grande do Sul"])
+#cities.append(['BR', "Gramado", "Rio Grande do Sul"])
 cities.append(['BR', "Guarulhos", "São Paulo"])
 cities.append(['CA', "Fredericton", "New Brunswick"])
 cities.append(['CA', "Calgary", "Alberta"])
+#cities.append(['CA', "Toronto", "Ontario"])
+cities.append(['CA', "Ottawa", "Ontario"])
 
-#List of places to be processed
+#List of places to be processed and call the API
 places = []
 
-#Object to get details from geo locations (latitute and longitude) based on the city, country and state.
+#INterating the cities to get details from geo locations (latitute and longitude) based on the city, country and state.
 for city in cities:
+    
+    #gettin the geolocations info (latitude and longitude)
     objGeo = GeoCodeAPI()
     objGeo.setCountry(city[0])
     objGeo.setCity(city[1])
-    objGeo.setState(city[2])
-    #Probabily in real world this would be stored in a database, here it's just a test with appcode hardcoded
-    objGeo.setAppKey("9c2e93f176d25559234a3d43712a506e")
+    objGeo.setState(city[2])    
+    objGeo.setAppKey( getAppKey() )
     location = objGeo.getGeoLocation()
 
     #just cheking if we got the information with no erros
@@ -41,8 +49,7 @@ for place in places:
     obj.setLatitude(place.getLat())
     obj.setLongitude(place.getLon())
     obj.setUnit("metric")
-    #Probabily in real world this would be stored in a database, here it's just a test with appcode hardcoded
-    obj.setAppKey("9c2e93f176d25559234a3d43712a506e")
+    obj.setAppKey( getAppKey() )
 
     #Call the method to get current weather conditions
     currTemp = obj.getCurrentWeather()
