@@ -47,7 +47,7 @@ class WeatherAPI:
         #Calling API
         response = requests.get(url).json() 
         if response['cod'] == 200:            
-            #Adding information about the current weather
+            #Adding information about the current weather            
             currWeather.setTemperature(response['main']['temp'])
             currWeather.setMaxTemperature(response['main']['temp_max'])
             currWeather.setMinTemperature(response['main']['temp_min'])
