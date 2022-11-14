@@ -3,7 +3,7 @@ from ClassApi.WeatherAPI import WeatherAPI
 import math
 
 def getAppKey():
-    #Probabily in real world this would be stored in a database, here it's just a test with AppKey hardcoded
+    #Probably  in real world this would be stored in a database, here it's just a test with AppKey hardcoded
     return "9c2e93f176d25559234a3d43712a506e"
 
 #List with cities that we wish to know the current temperature
