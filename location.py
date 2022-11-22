@@ -1,4 +1,4 @@
-class Locations():
+class Location():
     latitude:str   = "0"
     longitude:str  = "0"
     city:str       = ""

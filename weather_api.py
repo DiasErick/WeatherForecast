@@ -1,5 +1,5 @@
 import requests
-from WeatherInfo import WeatherInfo
+from weather_info import WeatherInfo
 from location import Location
 from credential import Credential  
 
