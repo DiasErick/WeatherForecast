@@ -36,9 +36,6 @@ def get_lat_lon(location: Location, credential: Credential, limit: int = 10):
             if city['state'] == location.state:
 
                 #adding details in the object
-                return [ str(city['lat']), str(city['lon']) ]
-                
-    else:
-        location.setError = "We got an error trying to get the location of city: " + city.city
+                return [ str(city['lat']), str(city['lon']) ]   
         
     return []
