@@ -1,8 +1,7 @@
 import requests
 from location import Location
-from credential import Credential
        
-def get_lat_lon(location: Location, credential: Credential, limit: int = 10):
+def get_lat_lon(location: Location, credential: str, limit: int = 10):
     
     #Cheking if all mandatory information was sent to method
     if not location.country:
@@ -21,7 +20,7 @@ def get_lat_lon(location: Location, credential: Credential, limit: int = 10):
     url = f"http://api.openweathermap.org/geo/1.0/direct"
     url += "?q=" + location.city + ",," + location.country
     url += "&limit=" + str(limit)
-    url += "&appid=" + credential.appKey
+    url += "&appid=" + credential
 
     #Calling API
     response = requests.get(url).json()
