@@ -5,7 +5,7 @@ import models
 from database import SessionLocal, engine
 from crud import create_app_key, get_app_key_by_id, get_locations_by_address, create_locations
 models.Base.metadata.create_all(bind=engine)
-
+ 
 def printWeather(loc: Location):
     
     #Cheking if all mandatory information was sent to method
@@ -70,5 +70,5 @@ def printWeather(loc: Location):
 loc = Location() ; loc.city = "Fredericton" ; loc.state = "New Brunswick" ; loc.country = "CA"
 printWeather(loc)
 
-loc = Location() ; loc.city = "Moncton" ; loc.state = "New Brunswick" ; loc.country = "CA"
+loc = Location() ; loc.city = "Toronto" ; loc.state = "Ontario" ; loc.country = "CA"
 printWeather(loc)
