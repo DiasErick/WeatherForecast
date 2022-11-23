@@ -1,4 +1,4 @@
-class WeatherInfo:
+class Weather:
     condition:str      = ""
     neighborhood:str   = ""
     error:str          = ""
