@@ -37,12 +37,10 @@ def printWeather(loc: Location):
         loc.longitude = db_location.longitude
     else:
         # If we haven't seen this city before, we call the API to get latitude and longitude    
-        lat_lon = get_lat_lon(loc, db_app_key.appkey)
-        if not lat_lon:
+        loc = get_lat_lon(loc, db_app_key.appkey)
+        if not loc.status:
             print("Looks like was not able to get geo location")
             return
-        loc.latitude = lat_lon[0]
-        loc.longitude = lat_lon[1]
         
         #Here I'm storing latitude and longitude in database, to avoid the API call next time for the same city
         create_locations(db = db, loc = loc)

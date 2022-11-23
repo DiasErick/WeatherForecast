@@ -4,7 +4,7 @@ from info import Location, Weather
 def execute_api(url: str):
     return requests.get(url).json()
 
-def get_lat_lon(location: Location, credential: str, limit: int = 10):    
+def get_lat_lon(location: Location, credential: str, limit: int = 10) -> Location:    
     
     #Defining url to the endpoint to get latitude and longitude
     url = f"http://api.openweathermap.org/geo/1.0/direct"
@@ -22,9 +22,12 @@ def get_lat_lon(location: Location, credential: str, limit: int = 10):
             #Just cheking if we are considering the correct state, because it is possible the have cities with same name in differente states.
             if city['state'] == location.state:
                 #adding details in the object
-                return [ str(city['lat']), str(city['lon']) ]   
+                location.latitude = str(city['lat'])
+                location.longitude = str(city['lon'])
+                location.state = True
+                return location
         
-    return []
+    return location
 
 def getCurrentWeather(location: Location, credential: str, unit:str = "metric" ) -> Weather:
     
