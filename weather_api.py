@@ -1,9 +1,8 @@
 import requests
 from weather import Weather
 from location import Location
-from credential import Credential  
 
-def getCurrentWeather(location: Location, credential: Credential, unit:str = "metric" ) -> Weather:
+def getCurrentWeather(location: Location, credential: str, unit:str = "metric" ) -> Weather:
     
     #Creating the object to get info about current weather
     currWeather = Weather()
@@ -23,7 +22,7 @@ def getCurrentWeather(location: Location, credential: Credential, unit:str = "me
     #Adding the paramters to call endpoint
     url += "?lat="   + location.latitude
     url += "&lon="   + location.longitude
-    url += "&appid=" + credential.appKey
+    url += "&appid=" + credential
     url += "&units=" + unit
     
     #Calling API
