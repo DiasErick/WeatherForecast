@@ -24,7 +24,7 @@ def get_lat_lon(location: Location, credential: str, limit: int = 10) -> Locatio
                 #adding details in the object
                 location.latitude = str(city['lat'])
                 location.longitude = str(city['lon'])
-                location.state = True
+                location.status = True
                 return location
         
     return location
