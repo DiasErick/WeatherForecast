@@ -12,6 +12,5 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    settings = Settings()
-    print(f"Loading settings for: {settings.env_name}")
+    settings = Settings()    
     return settings

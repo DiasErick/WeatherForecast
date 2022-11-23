@@ -1,6 +1,5 @@
-from geo_code_api import  get_lat_lon
-from weather_api import getCurrentWeather
-from location import Location
+from weather_api import getCurrentWeather, get_lat_lon
+from info import Location, Weather
 import math
 import models
 from database import SessionLocal, engine
@@ -17,50 +16,40 @@ db = SessionLocal()
 #getting the app key to call API
 db_app_key= get_app_key_by_id(db = db,  id = 1)
 
-#List with cities that we wish to know the current temperature
-locations = []
-loc = Location() ; loc.city = "Guarulhos" ; loc.state = "São Paulo" ; loc.country = "BR" ; locations.append(loc)
-loc = Location() ; loc.city = "Fredericton" ; loc.state = "New Brunswick" ; loc.country = "CA" ; locations.append(loc)
-
-#Iterating the cities to get details from geo locations (latitute and longitude) based on the city, country and state.
-for location in locations:
+#Adding the city to check the current weather
+loc = Location() ; loc.city = "Fredericton" ; loc.state = "New Brunswick" ; loc.country = "CA"
     
-    #Getting the geo-locations info (latitude and longitude)
+#Getting the geo-locations info (latitude and longitude)
+if db_location := get_locations_by_address(db = db, loc = loc):
     #First I'll check if we already have the lat and lon stored in database
-    if db_location := get_locations_by_address(db = db, loc = location):
-        location.latitude = db_location.latitude
-        location.longitude = db_location.longitude
-    else:
-        # If we haven't seen this city before, we call the API to get latitude and longitude
-        #Calling API
-        lat_lon = get_lat_lon(location, db_app_key.appkey)
-        if not lat_lon:
-            print("Looks like was not able to get geo location")
-            break
-        location.latitude = lat_lon[0]
-        location.longitude = lat_lon[1]
-        
-        #Here I'm storing latitude and longitude in database, to avoid the API call next time for the same city
-        create_locations(db = db, loc = location)
+    loc.latitude = db_location.latitude
+    loc.longitude = db_location.longitude
+else:
+    # If we haven't seen this city before, we call the API to get latitude and longitude    
+    lat_lon = get_lat_lon(loc, db_app_key.appkey)
+    if not lat_lon:
+        print("Looks like was not able to get geo location")
+    loc.latitude = lat_lon[0]
+    loc.longitude = lat_lon[1]
     
-    #Object to get details from current weather
-    currTemp = getCurrentWeather(location, db_app_key.appkey)
-    
-    #Just checkin if was processed without erros
-    if not currTemp:
-        print("Looks like was not able to get current location")
-        break        
-    elif not currTemp.status == True:
-        #Print error we got from API
-        print(currTemp.error)
-        break
-    else:        
-        #Show the current weather details/conditions        
-        print()
-        print("--------------------------------")
-        print("Neighborhood: " + currTemp.neighborhood)        
-        print("Condition: " + currTemp.condition)
-        print("Current Temperature: " + str(math.trunc(currTemp.temperature)) + " °C")    
-        print("Humidity: " + str(currTemp.humidity) + " %")
-        print("Wind: " + str(currTemp.wind) + " m/s")
-        print()
+    #Here I'm storing latitude and longitude in database, to avoid the API call next time for the same city
+    create_locations(db = db, loc = loc)
+
+#Object to get details from current weather
+currTemp = getCurrentWeather(loc, db_app_key.appkey)
+
+#Just checkin if was processed without erros
+if not currTemp:
+    print("Looks like was not able to get current location")    
+elif not currTemp.status == True:    
+    print(currTemp.error)
+else:        
+    #Show the current weather details/conditions        
+    print()
+    print("--------------------------------")
+    print("Neighborhood: " + currTemp.neighborhood)        
+    print("Condition: " + currTemp.condition)
+    print("Current Temperature: " + str(math.trunc(currTemp.temperature)) + " °C")    
+    print("Humidity: " + str(currTemp.humidity) + " %")
+    print("Wind: " + str(currTemp.wind) + " m/s")
+    print()
