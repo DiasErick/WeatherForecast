@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 import models, schemas
-from location import Location
+from info import Location
 
 def create_app_key(db: Session, app_key: str ):
     db_app_key = models.TABLEAPPKEY(appkey = app_key)    

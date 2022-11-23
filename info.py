@@ -9,3 +9,12 @@ class Weather:
     wind:int           = 0        
     gust:int           = 0        
     status:int         = False
+    
+class Location():
+    latitude:str   = "0"
+    longitude:str  = "0"
+    city:str       = ""
+    state:str      = ""
+    country:str    = ""
+    error:str      = ""
+    status         = False
