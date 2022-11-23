@@ -13,22 +13,18 @@ loc = Location() ; loc.city = "Guarulhos" ; loc.state = "São Paulo" ; loc.count
 loc = Location() ; loc.city = "Fredericton" ; loc.state = "New Brunswick" ; loc.country = "CA" ; locations.append(loc)
 
 #INterating the cities to get details from geo locations (latitute and longitude) based on the city, country and state.
-for cur_location in locations:
+for location in locations:
     
     #getting the geolocations info (latitude and longitude)
-    location = get_lat_lon(cur_location, appKey)    
-
-    #just cheking if we got the information with no erros
-    if not location:
+    lat_lon = get_lat_lon(location, appKey)    
+    if not lat_lon:
         print("Looks like was not able to get geo location")
-        break
-    elif not location.status == True:
-        #Print error we got from API
-        print(location.error)
-        break
+        break    
+    location.latitude = lat_lon[0]
+    location.longitude = lat_lon[1]
     
     #Object to get details from current weather    
-    currTemp = getCurrentWeather(location, appKey)    
+    currTemp = getCurrentWeather(location, appKey)
     
     #Just checkin if was processed without erros
     if not currTemp:

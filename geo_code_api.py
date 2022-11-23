@@ -35,12 +35,10 @@ def get_lat_lon(location: Location, credential: Credential, limit: int = 10):
             #Just cheking if we are considering the correct state, because it is possible the have cities with same name in differente states.
             if city['state'] == location.state:
 
-                #adding details in the object                    
-                location.latitude = str(city['lat'])
-                location.longitude = str(city['lon'])
-                location.status = True
-                break
+                #adding details in the object
+                return [ str(city['lat']), str(city['lon']) ]
+                
     else:
         location.setError = "We got an error trying to get the location of city: " + city.city
         
-    return location
+    return []
