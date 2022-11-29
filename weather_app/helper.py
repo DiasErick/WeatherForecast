@@ -1,8 +1,16 @@
 import math
+import models
 from sqlalchemy.orm import Session
 from crud import get_app_key_by_id, get_locations_by_address, create_locations
 from info import Location, City, Weather
 from weather_api import  get_lat_lon_api, getCurrentWeather, gettWeatherFOrecast
+from database import SessionLocal, engine
+
+def initializeDB():
+    models.Base.metadata.create_all(bind=engine)
+
+    #Creating instance for database
+    return SessionLocal()
 
 def getCredential(db: Session, id: int):
     
