@@ -1,12 +1,9 @@
-import models
-from info import City
-from helper import  getCredential, printWeather
-from database import SessionLocal, engine
 
-models.Base.metadata.create_all(bind=engine)
+from info import City
+from helper import  getCredential, printWeather,initializeDB
 
 #Creating instance for database
-db = SessionLocal()
+db = initializeDB()
 
 #Getting App Key
 app_key = getCredential(db = db, id = 1)
