@@ -28,7 +28,6 @@ def get_lat_lon_api(city: City, credential: str, limit: int = 10) -> Location:
         
     return location
 
-#def getCurrentWeather(location: Location, credential: str, unit:str = "metric" ) -> Weather:
 def getCurrentWeather(location: Location, credential: str, unit:str = "metric" ) -> Weather:
     
     #Creating the object to get info about current weather
