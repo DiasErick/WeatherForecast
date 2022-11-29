@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import models, schemas
-from info import Location
+import models
+from info import Location, City
 
 def create_app_key(db: Session, app_key: str ):
     db_app_key = models.TABLEAPPKEY(appkey = app_key)    
@@ -14,8 +14,8 @@ def create_locations(db: Session, loc: Location ):
     db.commit()
     db.refresh(db_location)
     
-def get_locations_by_address(db: Session, loc: Location) -> models.TABLELOCATION:
-    db_location = db.query(models.TABLELOCATION).filter(models.TABLELOCATION.city == loc.city, models.TABLELOCATION.state == loc.state, models.TABLELOCATION.country == loc.country).first()
+def get_locations_by_address(db: Session, city: City) -> models.TABLELOCATION:
+    db_location = db.query(models.TABLELOCATION).filter(models.TABLELOCATION.city == city.city, models.TABLELOCATION.state == city.state, models.TABLELOCATION.country == city.country).first()
     return db_location
 
 def get_app_key_by_id(db: Session, id: int) -> models.TABLEAPPKEY:
