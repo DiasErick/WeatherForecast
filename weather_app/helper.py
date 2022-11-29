@@ -35,31 +35,51 @@ def get_latitude_longitude(db: Session, city: City, app_key:str) -> Location:
 def printWeather(db:Session, city: City, app_key: str ):    
     
     location = get_latitude_longitude(db = db, city = city, app_key = app_key)
-
+    
     #Object to get details from current weather
     currTemp = getCurrentWeather(location, app_key)
     
     #Just checking if was processed without erros
     if not currTemp:
-        print("Looks like was not able to get current location")    
+        print("Looks like was not able to get current temperature")    
         return
     elif not currTemp.status == True:    
         print(currTemp.error)
         return
     else:
         printFormaCurrenttWeather(weather = currTemp)
-        
+    
     #Here I'm going to get the forecast next 5 days
-    gettWeatherFOrecast(location, credential = app_key, unit = "metric" )
+    weather_list = gettWeatherFOrecast(location, credential = app_key, unit = "metric" )
+    
+    #Just checking if was processed without erros
+    if not weather_list:
+        print("Looks like was not able to get weather forecast")
+        return
+    else:
+        printFormaForecastWeather(weather_list)
     
         
 def printFormaCurrenttWeather(weather: Weather):
-    #Show the current weather details/conditions        
-    print()
-    print("--------------------------------")
+    #Show the current weather details/conditions           
+    print("--------------------------------\n")    
     print("Neighborhood: " + weather.neighborhood)        
     print("Condition: " + weather.condition)
     print("Current Temperature: " + str(math.trunc(weather.temperature)) + " °C")    
     print("Humidity: " + str(weather.humidity) + " %")
     print("Wind: " + str(weather.wind) + " m/s")
-    print()
+    print("--------------------------------\n")
+    
+def printFormaForecastWeather(weather_list):
+    
+    for item in weather_list:
+        #Show the current weather details/conditions
+        obj_weather  = weather_list[item]
+        date_hour = item.split()
+        date = date_hour[0]
+        hour = date_hour[1]        
+        print("Weather forecast to " + obj_weather.city  + " on " + date + " at " + hour + ":")        
+        print("Condition: " + obj_weather.condition + \
+              ", Temperature: " + str(math.trunc(obj_weather.temperature)) + " °C" + \
+              ", Humidity: " + str(obj_weather.humidity) + " %" +  \
+              ", Wind: " + str(obj_weather.wind) + " m/s \n" )

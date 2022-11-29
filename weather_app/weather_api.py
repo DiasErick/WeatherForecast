@@ -61,9 +61,8 @@ def getCurrentWeather(location: Location, credential: str, unit:str = "metric" )
     return currWeather
 
 def gettWeatherFOrecast(location: Location, credential: str, unit:str = "metric" ):
-     
-     #Creating the object to get info about current weather
-    currWeather = Weather(location = location)
+    
+    forecast_list = {}
     
     #Getting the base URL from Endpoint
     url = f"https://api.openweathermap.org/data/2.5/forecast"
@@ -77,11 +76,15 @@ def gettWeatherFOrecast(location: Location, credential: str, unit:str = "metric"
     response = execute_api(url)
     if response['cod'] == "200":
         for item in response['list']:
-            print(item['main']['temp'] )
-            print(item['main']['temp_min'] )
-            print(item['main']['temp_max'] )
-            print(item['main']['humidity'] )
-            print(item['weather'][0]['main'] + " - " + item['weather'][0]['description'])
-            print(item['dt_txt'] )
-    
-    return []
+            
+             #Creating the object to get info about current weather
+            currWeather = Weather(location = location)            
+            currWeather.temperature = item['main']['temp']
+            currWeather.maxTemperature = item['main']['temp_max']
+            currWeather.minTemperature = item['main']['temp_min'] 
+            currWeather.humidity = item['main']['humidity']
+            currWeather.condition = item['weather'][0]['main'] + " - " + item['weather'][0]['description']
+            currWeather.wind = item['wind']['speed']
+            
+            forecast_list[item['dt_txt']] = currWeather    
+    return forecast_list

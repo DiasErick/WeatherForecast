@@ -12,5 +12,5 @@ db = SessionLocal()
 app_key = getCredential(db = db, id = 1)
     
 #Testing the function with some cities
-#printWeather(db = db, city = City("Fredericton", "New Brunswick", "CA") , app_key = app_key )
-printWeather(db = db, city = City("Toronto", "Ontario", "CA"), app_key = app_key )
+printWeather(db = db, city = City("Fredericton", "New Brunswick", "CA") , app_key = app_key )
+#printWeather(db = db, city = City("Toronto", "Ontario", "CA"), app_key = app_key )
